@@ -9,11 +9,12 @@ import org.testng.Assert;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.support.ui.ExpectedConditions;
 
 public class LoginPage extends BaseClass
 {	
 	private String logInButton = "(//button[text()='Sign in'])[2]";
-	String profileName = "Kumar", expectedCity ="", companyName = "", favoritesBusiness = "", openedBusiness ="", enquires="";
+	String profileName = "Kumar", expectedCity ="", companyName = "", favoritesBusiness = "", enquires="";
 	
 	public LoginPage(WebDriver driver) 
 	{
@@ -62,7 +63,9 @@ public class LoginPage extends BaseClass
 
 	public void clickOptionUnderUserProfile(String profileOptions) throws InterruptedException 
 	{
-		driver.findElement(By.id("radix-:r3:")).click();
+		//Thread.sleep(5000);
+		//driver.findElement(By.id("radix-:r3:")).click();
+		wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("radix-:r3:"))).click();
 		driver.findElement(By.xpath("//div[text()='"+profileOptions+"']")).click();
 		Thread.sleep(2000);
 	}
@@ -149,7 +152,8 @@ public class LoginPage extends BaseClass
 
 	public void user_opens_the_first_displayed_business() throws InterruptedException 
 	{
-		openedBusiness = driver.findElement(By.xpath("(//div[@class='flex items-start justify-between gap-2']//h3)[1]")).getText();
+		Thread.sleep(5000);
+		favoritesBusiness = driver.findElement(By.xpath("(//div[@class='flex items-start justify-between gap-2']//h3)[1]")).getText();
 		driver.findElement(By.xpath("(//div[@class='flex items-start justify-between gap-2']//h3)[1]")).click();
 		Thread.sleep(2000);
 	}
@@ -160,17 +164,38 @@ public class LoginPage extends BaseClass
 		Assert.assertTrue(sendEnquiryButton, "Send Enquiry button is not visible");
 	}
 
-	public void feed_the_enquiry_message_and_submit() 
+	public void feed_the_enquiry_message_and_submit() throws Exception 
 	{
+		Thread.sleep(5000);
 		enquires = "Requesting for the business details "+Reusable.generateRandomText(5);
-		driver.findElement(By.xpath("//label[text()='Message']//following-sibling::textarea)")).sendKeys(enquires);
+		driver.findElement(By.xpath("//label[text()='Message']//following-sibling::textarea")).sendKeys(enquires);
 		LoginPage.clickTheButton("Send enquiry");
+		Thread.sleep(5000);
 	}
 
 	public void verifyRecentEnquiry() 
 	{
-		String actualEnquiry = driver.findElement(By)
-		Assert.assertTrue();
+		String actualEnquiry = driver.findElement(By.xpath("(//div[text()='"+favoritesBusiness+"']/..//following-sibling::p)[1]")).getText();
+		Assert.assertEquals(actualEnquiry, enquires, "Enquiry value is not matching");
+	}
+
+	public void verify_button_is_visible_Inside_Business(String buttonName) 
+	{
+		boolean sendEnquiryButton = driver.findElement(By.xpath("//button[text()='"+buttonName+"']")).isDisplayed();
+		Assert.assertTrue(sendEnquiryButton, buttonName+" button is not visible");
+	}
+
+	public void provideReasonForTheBusiness() 
+	{
+		driver.findElement(By.xpath("//label[text()='Reason']//following-sibling::textarea")).sendKeys(enquires);
+	}
+
+	public void verifyPopupNotification() 
+	{
+		driver.findElement(By.xpath("//span[text()='Close']/..")).click();
+		
+		boolean notification = driver.findElement(By.xpath("//div[text()='Claim already pending'] or //div[text()='Claim submitted. Our team will review shortly.']")).isDisplayed();
+		Assert.assertTrue(notification, "Claim not submitted");
 	}
 	
 }

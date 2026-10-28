@@ -1,4 +1,4 @@
-Feature: Access the application
+Feature: Explore the Infoez application
 
   Background:
     Given Open the Infoez portal
@@ -43,7 +43,6 @@ Feature: Access the application
     Then Click on user profile and select "Favorites" option
     And verify selected business is listed under favorites page
     
-    @login   
   Scenario: Verify user can able send an enquiry 
     When User click on "Explore" menu in the navigation bar
     Then Verify explore tab is opened
@@ -53,6 +52,26 @@ Feature: Access the application
     And Feed the enquiry message and submit it
     Then Click on user profile and select "My Enquiries" option
     Then Verify the recent enquiry is listed under my enquires page
+    
+  Scenario: Verify user can able mark the business favorite after navigating in the business 
+    When User click on "Explore" menu in the navigation bar
+    Then Verify explore tab is opened
+    When User opens the first displayed business
+    Then Verify "Save" button is visible inside the business
+    And Click on "Save" button
+    Then Click on user profile and select "Favorites" option
+    And verify selected business is listed under favorites page
+    
+     @login   
+  Scenario: Verify user can access the claim ownership of the business 
+    When User click on "Explore" menu in the navigation bar
+    Then Verify explore tab is opened
+    When User opens the first displayed business
+    Then Verify "Claim" button is visible inside the business
+    And Click on "Claim" button
+    Then Provide a reason for the ownership claim
+    And Click on "Submit claim" button
+    Then Verify claim submitted successfully notification
     
     
     

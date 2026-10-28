@@ -132,16 +132,34 @@ public class LoginStep
         loginPage.verify_send_enquiry_button_is_visible();
     }
     
+    @Then("Verify {string} button is visible inside the business")
+    public void verify_button_is_visible_Inside_Business(String buttonName) 
+    {
+        loginPage.verify_button_is_visible_Inside_Business(buttonName);
+    }
+    
     @Then("Feed the enquiry message and submit it")
-    public void feed_the_enquiry_message_and_submit(String string) 
+    public void feed_the_enquiry_message_and_submit() throws Exception 
     {
         loginPage.feed_the_enquiry_message_and_submit();
     }
     
     @Then("Verify the recent enquiry is listed under my enquires page")
-    public void verifyRecentEnquiry(String string) 
+    public void verifyRecentEnquiry() 
     {
     	loginPage.verifyRecentEnquiry();
+    }
+    
+    @Then("Provide a reason for the ownership claim")
+    public void provideReasonForTheBusiness() 
+    {
+    	loginPage.provideReasonForTheBusiness();
+    }
+    
+    @Then("Verify claim submitted successfully notification")
+    public void verifyPopupNotification() 
+    {
+    	loginPage.verifyPopupNotification();
     }
     
 }
