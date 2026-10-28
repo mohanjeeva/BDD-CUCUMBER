@@ -14,7 +14,7 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 public class LoginPage extends BaseClass
 {	
 	private String logInButton = "(//button[text()='Sign in'])[2]";
-	String profileName = "Kumar", expectedCity ="", companyName = "", favoritesBusiness = "", enquires="";
+	String profileName = "Kumar", expectedCity ="", companyName = "", favoritesBusiness = "", enquires="", ratingComments="";
 	
 	public LoginPage(WebDriver driver) 
 	{
@@ -63,7 +63,7 @@ public class LoginPage extends BaseClass
 
 	public void clickOptionUnderUserProfile(String profileOptions) throws InterruptedException 
 	{
-		//Thread.sleep(5000);
+		Thread.sleep(5000);
 		//driver.findElement(By.id("radix-:r3:")).click();
 		wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("radix-:r3:"))).click();
 		driver.findElement(By.xpath("//div[text()='"+profileOptions+"']")).click();
@@ -169,7 +169,7 @@ public class LoginPage extends BaseClass
 		Thread.sleep(5000);
 		enquires = "Requesting for the business details "+Reusable.generateRandomText(5);
 		driver.findElement(By.xpath("//label[text()='Message']//following-sibling::textarea")).sendKeys(enquires);
-		LoginPage.clickTheButton("Send enquiry");
+		clickTheButton("Send enquiry");
 		Thread.sleep(5000);
 	}
 
@@ -179,23 +179,59 @@ public class LoginPage extends BaseClass
 		Assert.assertEquals(actualEnquiry, enquires, "Enquiry value is not matching");
 	}
 
-	public void verify_button_is_visible_Inside_Business(String buttonName) 
+	public void verify_button_is_visible_Inside_Business(String buttonName) throws Exception 
 	{
+		String buttonStatus = driver.findElement(By.xpath("//button[contains(@data-testid,'favorite-toggle-btn-')]")).getText();
+		if(buttonStatus.equalsIgnoreCase("Saved"))
+		{
+			driver.findElement(By.xpath("//button[text()='Saved']")).click();
+			Thread.sleep(2000);
+		}
 		boolean sendEnquiryButton = driver.findElement(By.xpath("//button[text()='"+buttonName+"']")).isDisplayed();
 		Assert.assertTrue(sendEnquiryButton, buttonName+" button is not visible");
 	}
 
 	public void provideReasonForTheBusiness() 
 	{
-		driver.findElement(By.xpath("//label[text()='Reason']//following-sibling::textarea")).sendKeys(enquires);
+		driver.findElement(By.xpath("//label[text()='Reason']//following-sibling::textarea")).sendKeys("I am the Owner");
 	}
 
 	public void verifyPopupNotification() 
 	{
 		driver.findElement(By.xpath("//span[text()='Close']/..")).click();
 		
-		boolean notification = driver.findElement(By.xpath("//div[text()='Claim already pending'] or //div[text()='Claim submitted. Our team will review shortly.']")).isDisplayed();
+		boolean notification = driver.findElement(By.xpath("//div[text()='Claim already pending' or text()='Claim submitted. Our team will review shortly.']")).isDisplayed();
 		Assert.assertTrue(notification, "Claim not submitted");
+	}
+
+	public void provideRatingAndCommentsForTheBusiness() 
+	{
+		String rating = Reusable.generateRandomNumber(1);
+		ratingComments = "Provide good service "+Reusable.generateRandomText(5);
+		
+		driver.findElement(By.xpath("//button[@data-testid='review-star-"+rating+"']")).click();
+		
+		driver.findElement(By.xpath("//label[text()='Comment']//following-sibling::textarea")).sendKeys(ratingComments);
+		
+		clickTheButton("Post review");
+	}
+
+	public void verifyTheRatingAndComments() 
+	{
+		String actualComment = driver.findElement(By.xpath("//a[text()='"+favoritesBusiness+"']//following-sibling::p")).getText();
+		Assert.assertEquals(actualComment, ratingComments, "Actual rating comment and Expected were not matched");
+	}
+
+	public void deleteTheReviewPosted() 
+	{
+		driver.findElement(By.xpath("(//button[contains(@data-testid,'delete-review-')])[1]")).click();
+		driver.switchTo().alert().accept();
+	}
+
+	public void verifyReviewIsRemoved() throws InterruptedException 
+	{
+		Thread.sleep(2000);
+		driver.findElement(By.xpath("//div[text()='Review removed']")).isDisplayed();
 	}
 	
 }

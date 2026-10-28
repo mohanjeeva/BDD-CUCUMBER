@@ -1,3 +1,4 @@
+@login
 Feature: Explore the Infoez application
 
   Background:
@@ -34,16 +35,15 @@ Feature: Explore the Infoez application
     Then Click on "Search" button
     And Verify the search result should not listed based on business name or city
     Then Click on user profile and select "Log out" option
- 
- 
-  Scenario: Verify user can able to add the business as favorites 
+
+  Scenario: Verify user can able to add the business as favorites
     When User click on "Explore" menu in the navigation bar
     Then Verify explore tab is opened
     When User selects the first business as favorites
     Then Click on user profile and select "Favorites" option
     And verify selected business is listed under favorites page
-    
-  Scenario: Verify user can able send an enquiry 
+
+  Scenario: Verify user can able send an enquiry
     When User click on "Explore" menu in the navigation bar
     Then Verify explore tab is opened
     When User opens the first displayed business
@@ -52,8 +52,8 @@ Feature: Explore the Infoez application
     And Feed the enquiry message and submit it
     Then Click on user profile and select "My Enquiries" option
     Then Verify the recent enquiry is listed under my enquires page
-    
-  Scenario: Verify user can able mark the business favorite after navigating in the business 
+
+  Scenario: Verify user can able mark the business favorite after navigating in the business
     When User click on "Explore" menu in the navigation bar
     Then Verify explore tab is opened
     When User opens the first displayed business
@@ -61,9 +61,8 @@ Feature: Explore the Infoez application
     And Click on "Save" button
     Then Click on user profile and select "Favorites" option
     And verify selected business is listed under favorites page
-    
-     @login   
-  Scenario: Verify user can access the claim ownership of the business 
+
+  Scenario: Verify user can access the claim ownership of the business
     When User click on "Explore" menu in the navigation bar
     Then Verify explore tab is opened
     When User opens the first displayed business
@@ -72,23 +71,25 @@ Feature: Explore the Infoez application
     Then Provide a reason for the ownership claim
     And Click on "Submit claim" button
     Then Verify claim submitted successfully notification
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
+
+  Scenario: Verify user can give review for the business
+    When User click on "Explore" menu in the navigation bar
+    Then Verify explore tab is opened
+    When User opens the first displayed business
+    Then Verify "Write a review" button is visible inside the business
+    And Click on "Write a review" button
+    Then Provide rating and comments for the business
+    Then Click on user profile and select "My Reviews" option
+    And Verify the given rating and comments are listed
+
+  Scenario: Verify user can delete the review
+    When User click on "Explore" menu in the navigation bar
+    Then Verify explore tab is opened
+    When User opens the first displayed business
+    Then Verify "Write a review" button is visible inside the business
+    And Click on "Write a review" button
+    Then Provide rating and comments for the business
+    Then Click on user profile and select "My Reviews" option
+    And Verify the given rating and comments are listed
+    Then Delete the review posted
+    And Verify the review is removed

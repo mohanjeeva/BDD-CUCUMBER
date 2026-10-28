@@ -42,4 +42,19 @@ public class Reusable extends BaseClass
 
         return text.toString();
     }
+	
+	public static String generateRandomNumber(int length) 
+	{
+        String characters = "12345";
+        StringBuilder text = new StringBuilder();
+        Random random = new Random();
+
+        for (int i = 0; i < length; i++) 
+        {
+            int index = random.nextInt(characters.length());
+            text.append(characters.charAt(index));
+        }
+
+        return text.toString();
+    }
 }

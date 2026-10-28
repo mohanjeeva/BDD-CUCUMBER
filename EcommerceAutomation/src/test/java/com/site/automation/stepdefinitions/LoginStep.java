@@ -133,7 +133,7 @@ public class LoginStep
     }
     
     @Then("Verify {string} button is visible inside the business")
-    public void verify_button_is_visible_Inside_Business(String buttonName) 
+    public void verify_button_is_visible_Inside_Business(String buttonName) throws Exception 
     {
         loginPage.verify_button_is_visible_Inside_Business(buttonName);
     }
@@ -160,6 +160,30 @@ public class LoginStep
     public void verifyPopupNotification() 
     {
     	loginPage.verifyPopupNotification();
+    }
+    
+    @Then("Provide rating and comments for the business")
+    public void provideRatingAndCommentsForTheBusiness() 
+    {
+    	loginPage.provideRatingAndCommentsForTheBusiness();
+    }
+    
+    @Then("Verify the given rating and comments are listed")
+    public void verifyTheRatingAndComments() 
+    {
+    	loginPage.verifyTheRatingAndComments();
+    }
+    
+    @Then("Delete the review posted")
+    public void deleteTheReviewPosted() 
+    {
+    	loginPage.deleteTheReviewPosted();
+    }
+    
+    @Then("Verify the review is removed")
+    public void verifyReviewIsRemoved() throws InterruptedException 
+    {
+    	loginPage.verifyReviewIsRemoved();
     }
     
 }
