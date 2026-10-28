@@ -1,7 +1,10 @@
 /*Reusable class is to reuse the repeated codes like validations, logical implementations, etc*/
 package com.site.automation.reusable;
 
-import org.junit.Assert;
+import org.testng.Assert;
+
+import java.util.Random;
+
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -18,11 +21,25 @@ public class Reusable extends BaseClass
 
 	public static void softAssert(String falseMessage, String xpath)
 	{
-		SoftAssert softAssert = new SoftAssert();
 		WebElement verificationElement = driver.findElement(By.xpath(xpath));
 
-		Assert.assertTrue(falseMessage,verificationElement.isDisplayed() || verificationElement.isEnabled());
+		Assert.assertTrue(verificationElement.isDisplayed() || verificationElement.isEnabled(),falseMessage);
 		
 		//softAssert.assertAll();
 	}
+	
+	public static String generateRandomText(int length) 
+	{
+        String characters = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz";
+        StringBuilder text = new StringBuilder();
+        Random random = new Random();
+
+        for (int i = 0; i < length; i++) 
+        {
+            int index = random.nextInt(characters.length());
+            text.append(characters.charAt(index));
+        }
+
+        return text.toString();
+    }
 }

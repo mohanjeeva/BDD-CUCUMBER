@@ -1,9 +1,9 @@
+/*In steps java class as we are not declaring any codes and locators to make the framework reusable, readable, and easy to maintain.*/
+
 package com.site.automation.stepdefinitions;
 
 import com.site.automation.driver.DriverFactory;
 import com.site.automation.pages.LoginPage;
-
-/*In steps java class as we are not declaring any codes and locators to make the framework reusable, readable, and easy to maintain.*/
 
 import io.cucumber.java.en.*;
 
@@ -27,7 +27,7 @@ public class LoginStep
     public void clickTheButton(String buttonName) throws InterruptedException 
 	{
 		//System.out.println(buttonName);
-        loginPage.clickTheButton(buttonName);
+        LoginPage.clickTheButton(buttonName);
     }
 
     @When("User logs in with username {string} and password {string}")
@@ -42,23 +42,106 @@ public class LoginStep
     	loginPage.verifyUserLoggedInToInfoezPage();
     }
     
-    @When("Click on {string} menu in the navigation bar")
+    @When("User click on {string} menu in the navigation bar")
     public void clickMenuInNavigationBar(String navigationMenu) throws InterruptedException 
     {
     	loginPage.clickMenuInNavigationBar(navigationMenu);
     }
-//
-//    @Then("the user should see the banking dashboard")
-//    public void verifyDashboard() 
-//    {
-//        assertTrue(loginPage.isDashboardDisplayed(),
-//            "Banking dashboard was not displayed");
-//    }
-//
-//    @Then("the user should see an invalid credentials message")
-//    public void verifyErrorMessage() 
-//    {
-//        assertEquals(loginPage.getErrorMessage(),
-//            "Invalid credentials");
-//    }
+    
+    @When("Click on user profile and select {string} option")
+    public void clickOptionUnderUserProfile(String profileOptions) throws InterruptedException 
+    {
+    	loginPage.clickOptionUnderUserProfile(profileOptions);
+    }
+
+    @Then("Update user details and save the changes")
+    public void updateUserDetails() 
+    {
+        loginPage.updateUserDetails();
+    }
+    
+    @Then("Verify updated value is reflect in the profile")
+    public void verifyUpdatedValueInUserProfile() throws InterruptedException 
+    {
+        loginPage.verifyUpdatedValueInUserProfile();
+    }
+
+    @Then("Verify explore tab is opened")
+    public void verifyExploreTabIsOpened() 
+    {
+        loginPage.verifyExploreTabIsOpened();
+    }
+    
+    @When("User enter the business name {string} in Search bar")
+    public void user_enter_the_business_name_in_search_bar(String businessName) 
+    {
+        loginPage.user_enter_the_business_name_in_search_bar(businessName);
+    }
+    
+    @Then("Verify the search result has matching business name in dashboard")
+    public void verify_the_search_result_has_matching_business_name_in_dashboard() throws InterruptedException 
+    {
+        loginPage.verify_the_search_result_has_matching_business_name_in_dashboard();
+    }
+    
+    @When("User enter the City name {string} in city bar")
+    public void user_enter_the_city_name_in_city_bar(String city) 
+    {
+        loginPage.user_enter_the_city_name_in_city_bar(city);
+    }
+    
+    @Then("Verify the search result has matching city name in dashboard")
+    public void verify_the_search_result_has_matching_city_name_in_dashboard() throws InterruptedException 
+    {
+        loginPage.verify_the_search_result_has_matching_city_name_in_dashboard();
+    }
+    
+    @Then("Verify the search result should not listed based on business name or city")
+    public void verifyTheSearchedBusinessOrCityIsNotListed() throws InterruptedException 
+    {
+        loginPage.verifyTheSearchedBusinessOrCityIsNotListed();
+    }
+    
+    @Then("Clear the search results")
+    public void clearTheSearchResults() throws InterruptedException 
+    {
+        loginPage.clearTheSearchResults();
+    }
+    
+    @When("User selects the first business as favorites")
+    public void user_selects_the_first_business_as_favorites() throws Exception 
+    {
+        loginPage.user_selects_the_first_business_as_favorites();
+    }
+    
+    @Then("verify selected business is listed under favorites page")
+    public void verify_selected_business_is_listed_under_favorites_page() throws InterruptedException 
+    {
+        loginPage.verify_selected_business_is_listed_under_favorites_page();
+    }
+    
+    @When("User opens the first displayed business")
+    public void user_opens_the_first_displayed_business() throws InterruptedException 
+    {
+        loginPage.user_opens_the_first_displayed_business();
+    }
+    
+    @Then("Verify send enquiry button is visible")
+    public void verify_send_enquiry_button_is_visible() 
+    {
+        loginPage.verify_send_enquiry_button_is_visible();
+    }
+    
+    @Then("Feed the enquiry message and submit it")
+    public void feed_the_enquiry_message_and_submit(String string) 
+    {
+        loginPage.feed_the_enquiry_message_and_submit();
+    }
+    
+    @Then("Verify the recent enquiry is listed under my enquires page")
+    public void verifyRecentEnquiry(String string) 
+    {
+    	loginPage.verifyRecentEnquiry();
+    }
+    
 }

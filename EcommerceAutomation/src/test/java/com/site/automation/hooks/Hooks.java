@@ -20,9 +20,6 @@ public class Hooks
     @After
     public void tearDown() 
     {
-    	SoftAssert softAssert = new SoftAssert();
-		
-		softAssert.assertAll();
         DriverFactory.quitDriver();
     }
 }
