@@ -13,7 +13,7 @@ import io.cucumber.junit.Cucumber;
             "com.site.automation.hooks"},
     plugin = {"pretty", "html:reports/cucumber-report.html"},
     monochrome = true,
-    tags = "@Explore and not @Skip"
+    tags = "@Pricing"
 )
 public class TestRunner extends AbstractTestNGCucumberTests 
 {

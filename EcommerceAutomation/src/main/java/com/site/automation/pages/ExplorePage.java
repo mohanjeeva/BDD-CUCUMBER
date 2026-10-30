@@ -13,81 +13,15 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.support.ui.ExpectedConditions;
 
 public class ExplorePage extends BaseClass
 {	
-	private String logInButton = "(//button[text()='Sign in'])[2]";
 	private String minRatingLocator = "//div[@class='grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-6']//a//span[@class='font-mono text-sm font-semibold']";
-	String profileName = "Kumar", expectedCity ="", companyName = "", favoritesBusiness = "", enquires="", ratingComments="", dropdownValue="";
+	String expectedCity ="", companyName = "", favoritesBusiness = "", enquires="", ratingComments="", dropdownValue="";
 	
 	public ExplorePage(WebDriver driver) 
 	{
 		super(driver);
-	}
-
-	public void openApplication(String url) throws InterruptedException 
-	{
-        driver.get(url);
-        Thread.sleep(2000);
-    }
-	
-	public void verifyInfoezHomepageIsOpened() 
-	{
-		//Creating soft assert as a reusable method with failed message and xpath as as argument
-		//As it is a resusable method for all validation we can utilize it which helps in reducing repeated codes
-		Reusable.softAssert("Infoez home page is not opened", "//button[text()='Sign in']");
-    }
-
-	public static void clickTheButton(String buttonName) 
-	{
-		driver.findElement(By.xpath("//button[text()='"+buttonName+"']")).click();
-	}
-
-	public void enterUsernameAndPassword(String username, String password) throws InterruptedException 
-	{
-		// TODO Auto-generated method stub
-		driver.findElement(By.id("email")).sendKeys(username);
-		Thread.sleep(2000);
-		driver.findElement(By.id("password")).sendKeys(password);
-		Thread.sleep(2000);
-		driver.findElement(By.xpath(logInButton)).click();
-		Thread.sleep(5000);
-	}
-
-	public void verifyUserLoggedInToInfoezPage() throws InterruptedException 
-	{
-		Reusable.softAssert("User not logged into Infoez", "//button//span[@class='hidden sm:inline text-sm font-medium']");
-		Thread.sleep(2000);
-	}
-
-	public void clickOptionUnderUserProfile(String profileOptions) throws InterruptedException 
-	{
-		Thread.sleep(5000);
-		//driver.findElement(By.id("radix-:r3:")).click();
-		wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("radix-:r3:"))).click();
-		driver.findElement(By.xpath("//div[text()='"+profileOptions+"']")).click();
-		Thread.sleep(2000);
-	}
-
-	public void updateUserDetails() 
-	{
-		driver.findElement(By.xpath("//label[text()='Name']//following-sibling::input")).clear();
-		driver.findElement(By.xpath("//label[text()='Name']//following-sibling::input")).sendKeys(profileName);
-		driver.findElement(By.xpath("//button[text()='Save changes']")).click();
-	}
-
-	public void verifyUpdatedValueInUserProfile() throws InterruptedException 
-	{
-		Thread.sleep(3000);
-		String actualName = driver.findElement(By.xpath("//span[@class='hidden sm:inline text-sm font-medium']")).getText();
-		Assert.assertEquals(actualName, profileName, "Value Not matched");
-		
-		/*CHanging back to the original value*/
-		driver.findElement(By.xpath("//label[text()='Name']//following-sibling::input")).clear();
-		driver.findElement(By.xpath("//label[text()='Name']//following-sibling::input")).sendKeys("Ravi");
-		driver.findElement(By.xpath("//button[text()='Save changes']")).click();
-		Thread.sleep(5000);
 	}
 	
 	public void clickMenuInNavigationBar(String navigationMenu) 
@@ -174,7 +108,7 @@ public class ExplorePage extends BaseClass
 		Thread.sleep(5000);
 		enquires = "Requesting for the business details "+Reusable.generateRandomText(5);
 		driver.findElement(By.xpath("//label[text()='Message']//following-sibling::textarea")).sendKeys(enquires);
-		clickTheButton("Send enquiry");
+		LoginPage.clickTheButton("Send enquiry");
 		Thread.sleep(5000);
 	}
 
@@ -220,7 +154,7 @@ public class ExplorePage extends BaseClass
 		
 		driver.findElement(By.xpath("//label[text()='Comment']//following-sibling::textarea")).sendKeys(ratingComments);
 		
-		clickTheButton("Post review");
+		LoginPage.clickTheButton("Post review");
 	}
 
 	public void verifyTheRatingAndComments() 

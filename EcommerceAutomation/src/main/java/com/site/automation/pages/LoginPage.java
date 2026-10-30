@@ -14,7 +14,7 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 public class LoginPage extends BaseClass
 {	
 	private String logInButton = "(//button[text()='Sign in'])[2]";
-	String profileName = "Kumar", expectedCity ="", companyName = "", favoritesBusiness = "", enquires="", ratingComments="";
+	String profileName = "Kumar";
 	
 	public LoginPage(WebDriver driver) 
 	{
@@ -36,7 +36,7 @@ public class LoginPage extends BaseClass
 
 	public static void clickTheButton(String buttonName) 
 	{
-		driver.findElement(By.xpath("//button[text()='"+buttonName+"']")).click();
+		driver.findElement(By.xpath("//*[text()='"+buttonName+"']")).click();
 	}
 
 	public void enterUsernameAndPassword(String username, String password) throws InterruptedException 
